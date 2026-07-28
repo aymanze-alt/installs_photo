@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: sales_order_installer
+Version: 0.0.1
+Summary: Controlled Sales Order attachment and installed status workflow
+Dynamic: summary

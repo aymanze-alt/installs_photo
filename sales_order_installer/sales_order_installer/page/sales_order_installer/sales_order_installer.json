@@ -1,0 +1,12 @@
+{
+  "doctype": "Page",
+  "name": "sales-order-installer",
+  "page_name": "sales-order-installer",
+  "module": "Sales Order Installer",
+  "title": "Sales Order Installer",
+  "standard": "Yes",
+  "roles": [
+    {"role": "Sales Order Installer"},
+    {"role": "System Manager"}
+  ]
+}

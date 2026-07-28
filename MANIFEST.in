@@ -1,0 +1,3 @@
+include README.md
+include license.txt
+recursive-include sales_order_installer *.json *.js *.css *.py *.txt

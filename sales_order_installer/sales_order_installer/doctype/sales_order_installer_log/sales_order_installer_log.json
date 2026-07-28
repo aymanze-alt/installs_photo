@@ -1,0 +1,57 @@
+{
+  "doctype": "DocType",
+  "name": "Sales Order Installer Log",
+  "module": "Sales Order Installer",
+  "autoname": "hash",
+  "engine": "InnoDB",
+  "editable_grid": 1,
+  "fields": [
+    {
+      "fieldname": "sales_order",
+      "fieldtype": "Link",
+      "label": "Sales Order",
+      "options": "Sales Order",
+      "reqd": 1
+    },
+    {
+      "fieldname": "installer",
+      "fieldtype": "Link",
+      "label": "Installer",
+      "options": "User",
+      "reqd": 1
+    },
+    {
+      "fieldname": "installed_at",
+      "fieldtype": "Datetime",
+      "label": "Installed At",
+      "reqd": 1
+    },
+    {
+      "fieldname": "files_count",
+      "fieldtype": "Int",
+      "label": "Files Count"
+    },
+    {
+      "fieldname": "file_names",
+      "fieldtype": "Small Text",
+      "label": "File Names"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Sales Order Installer",
+      "read": 1,
+      "create": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "print": 1,
+      "report": 1
+    }
+  ]
+}
