@@ -303,3 +303,424 @@
         top: 78px;
     }
 }
+
+.sales-order-installer-type {
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+.sales-order-type-buttons {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.sales-order-type-buttons .btn {
+    flex: 1;
+    min-height: 110px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    text-align: left;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: all 0.15s ease;
+    background: #ffffff !important;
+}
+
+.sales-order-type-buttons .btn:hover,
+.sales-order-type-buttons .btn:focus {
+    border-color: #111827;
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
+    outline: 0;
+}
+
+.sales-order-type-buttons .btn.active {
+    border-color: #2563eb !important;
+    background: #eff6ff !important;
+}
+
+.sales-order-type-buttons .btn-primary,
+.sales-order-type-buttons .btn-primary:hover,
+.sales-order-type-buttons .btn-primary:focus,
+.sales-order-type-buttons .btn-primary:active {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #111827 !important;
+}
+
+.sales-order-type-buttons .btn-primary.active,
+.sales-order-type-buttons .btn-primary.active:hover,
+.sales-order-type-buttons .btn-primary.active:focus {
+    background: #eff6ff !important;
+    border-color: #2563eb !important;
+    color: #111827 !important;
+}
+
+.sales-order-type-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+}
+
+.sales-order-type-buttons .btn-primary .sales-order-type-icon {
+    background: #dbeafe;
+}
+
+.sales-order-type-buttons .btn.active .sales-order-type-icon {
+    background: #2563eb;
+}
+
+.sales-order-type-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    color: #6b7280;
+}
+
+.sales-order-type-buttons .btn-primary .sales-order-type-icon svg {
+    color: #2563eb;
+}
+
+.sales-order-type-buttons .btn.active .sales-order-type-icon svg {
+    color: #ffffff;
+}
+
+.sales-order-type-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.sales-order-type-label strong {
+    font-size: 15px;
+    font-weight: 650;
+    color: #111827;
+}
+
+.sales-order-type-label small {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.sales-order-type-hint {
+    display: block;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.install-preview-container {
+    font-family: inherit;
+}
+
+.install-preview-header {
+    padding: 16px 0 8px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+}
+
+.install-preview-stats {
+    display: flex;
+    gap: 24px;
+}
+
+.install-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 10px;
+    min-width: 120px;
+}
+
+.install-stat.before {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+}
+
+.install-stat.after {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+}
+
+.install-stat-count {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.install-stat.before .install-stat-count {
+    color: #d97706;
+}
+
+.install-stat.after .install-stat-count {
+    color: #16a34a;
+}
+
+.install-stat-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.install-preview-tabs {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.install-tab-btn {
+    border: none;
+    background: transparent;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.install-tab-btn:hover:not(.active) {
+    color: #0f172a;
+}
+
+.install-tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+
+.install-tab-panel {
+    display: none;
+}
+
+.install-tab-panel.active {
+    display: block;
+}
+
+.install-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.install-preview-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: zoom-in;
+}
+
+.install-preview-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.install-preview-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: #f1f5f9;
+    overflow: hidden;
+}
+
+.install-preview-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.install-preview-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.install-preview-badge.before {
+    background: #d97706;
+    color: #ffffff;
+}
+
+.install-preview-badge.after {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.install-preview-details {
+    padding: 12px;
+}
+
+.install-preview-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.install-preview-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 11px;
+    color: #64748b;
+}
+
+.install-preview-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    text-align: center;
+    color: #64748b;
+    grid-column: 1 / -1;
+}
+
+.install-preview-empty svg {
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.install-preview-empty.before {
+    border-color: #fde68a;
+    background: #fffbeb;
+}
+
+.install-preview-empty.after {
+    border-color: #86efac;
+    background: #f0fdf4;
+}
+
+.install-preview-empty p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.install-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.install-timeline-item {
+    position: relative;
+    padding-left: 40px;
+}
+
+.install-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.install-timeline-item:last-child::before {
+    display: none;
+}
+
+.install-timeline-marker {
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px #e2e8f0;
+}
+
+.install-timeline-marker.before {
+    background: #d97706;
+}
+
+.install-timeline-marker.after {
+    background: #16a34a;
+}
+
+.install-timeline-content {
+    background: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.install-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.install-timeline-type {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.install-timeline-type.before {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.install-timeline-type.after {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.install-timeline-time {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.install-timeline-installer {
+    font-size: 13px;
+    color: #334155;
+    margin-bottom: 2px;
+}
+
+.install-timeline-files {
+    font-size: 12px;
+    color: #64748b;
+}

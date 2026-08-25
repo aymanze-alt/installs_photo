@@ -35,6 +35,13 @@
       "fieldname": "file_names",
       "fieldtype": "Small Text",
       "label": "File Names"
+    },
+    {
+      "fieldname": "upload_type",
+      "fieldtype": "Select",
+      "label": "Upload Type",
+      "options": "Before Installation\nAfter Installation",
+      "default": "Before Installation"
     }
   ],
   "permissions": [

@@ -136,7 +136,7 @@ def search_sales_orders(query=None, limit=8):
 
 
 @frappe.whitelist()
-def upload_and_mark_installed(sales_order_name, files):
+def upload_and_mark_installed(sales_order_name, files, upload_type="before"):
     _require_installer_role()
     sales_order_name = _validate_sales_order_name(sales_order_name)
 
@@ -148,6 +148,29 @@ def upload_and_mark_installed(sales_order_name, files):
 
     if len(files) > 10:
         frappe.throw(_("You can upload a maximum of 10 files at a time."))
+
+    upload_type_map = {"before": "Before Installation", "after": "After Installation"}
+    upload_type = upload_type_map.get(upload_type, upload_type)
+    is_after = upload_type == "After Installation"
+    if is_after:
+        frappe.db.set_value(
+            "Sales Order",
+            sales_order_name,
+            "custom_installeddone_",
+            1,
+            update_modified=True,
+        )
+
+    log = frappe.get_doc({
+        "doctype": "Sales Order Installer Log",
+        "sales_order": sales_order_name,
+        "installer": frappe.session.user,
+        "installed_at": now_datetime(),
+        "files_count": len(files),
+        "file_names": "\n".join(item.get("file_name", "") for item in files if item.get("file_name")),
+        "upload_type": upload_type,
+    })
+    log.insert(ignore_permissions=True)
 
     created_files = []
 
@@ -162,21 +185,21 @@ def upload_and_mark_installed(sales_order_name, files):
 
         duplicate = frappe.db.exists("File", {
             "file_name": file_name,
-            "attached_to_doctype": "Sales Order",
-            "attached_to_name": sales_order_name,
+            "attached_to_doctype": "Sales Order Installer Log",
+            "attached_to_name": log.name,
         })
 
         if duplicate:
             frappe.throw(
-                _("A file named {0} is already attached to Sales Order {1}.")
-                .format(file_name, sales_order_name)
+                _("A file named {0} is already attached to Log {1}.")
+                .format(file_name, log.name)
             )
 
         file_doc = frappe.get_doc({
             "doctype": "File",
             "file_name": file_name,
-            "attached_to_doctype": "Sales Order",
-            "attached_to_name": sales_order_name,
+            "attached_to_doctype": "Sales Order Installer Log",
+            "attached_to_name": log.name,
             "is_private": 1,
             "content": content,
         })
@@ -189,30 +212,57 @@ def upload_and_mark_installed(sales_order_name, files):
             "file_url": file_doc.file_url,
         })
 
-    frappe.db.set_value(
-        "Sales Order",
-        sales_order_name,
-        "custom_installeddone_",
-        1,
-        update_modified=True,
-    )
-
-    log = frappe.get_doc({
-        "doctype": "Sales Order Installer Log",
-        "sales_order": sales_order_name,
-        "installer": frappe.session.user,
-        "installed_at": now_datetime(),
-        "files_count": len(created_files),
-        "file_names": "\n".join(f["file_name"] for f in created_files),
-    })
-    log.insert(ignore_permissions=True)
-
     frappe.db.commit()
 
     return {
         "success": True,
         "sales_order": sales_order_name,
-        "installed_done": 1,
+        "installed_done": 1 if is_after else 0,
         "files": created_files,
         "message": _("Sales Order updated successfully."),
+    }
+
+
+@frappe.whitelist()
+def get_installation_preview(sales_order_name):
+    _require_installer_role()
+    sales_order_name = _validate_sales_order_name(sales_order_name)
+
+    before_logs = frappe.get_all(
+        "Sales Order Installer Log",
+        filters={"sales_order": sales_order_name, "upload_type": "Before Installation"},
+        fields=["name", "installer", "installed_at", "files_count"],
+        order_by="installed_at asc"
+    )
+
+    after_logs = frappe.get_all(
+        "Sales Order Installer Log",
+        filters={"sales_order": sales_order_name, "upload_type": "After Installation"},
+        fields=["name", "installer", "installed_at", "files_count"],
+        order_by="installed_at asc"
+    )
+
+    def get_files_for_logs(logs):
+        files = []
+        for log in logs:
+            log_files = frappe.get_all(
+                "File",
+                filters={"attached_to_doctype": "Sales Order Installer Log", "attached_to_name": log.name},
+                fields=["file_url", "file_name", "creation"],
+                order_by="creation asc"
+            )
+            for f in log_files:
+                files.append({
+                    "file_url": f.file_url,
+                    "file_name": f.file_name,
+                    "creation": f.creation,
+                    "installer": log.installer
+                })
+        return files
+
+    return {
+        "before_files": get_files_for_logs(before_logs),
+        "after_files": get_files_for_logs(after_logs),
+        "before_logs": before_logs,
+        "after_logs": after_logs
     }

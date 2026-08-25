@@ -9,3 +9,4 @@ after_install = "sales_order_installer.install.after_install"
 after_migrate = "sales_order_installer.install.after_migrate"
 
 app_include_css = ["/assets/sales_order_installer/css/sales_order_installer.css"]
+app_include_js = ["/assets/sales_order_installer/js/sales_order_client.js"]

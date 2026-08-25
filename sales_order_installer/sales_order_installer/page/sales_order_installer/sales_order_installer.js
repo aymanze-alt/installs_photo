@@ -45,6 +45,31 @@ class SalesOrderInstallerPage {
                         </div>
                     </div>
 
+                    <div class="sales-order-installer-type">
+                        <label class="control-label">${__("Upload Type")}</label>
+                        <div class="btn-group sales-order-type-buttons" role="group">
+                            <button type="button" class="btn btn-lg btn-primary sales-order-type-btn active" data-type="After Installation">
+                                <div class="sales-order-type-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                </div>
+                                <div class="sales-order-type-label">
+                                    <strong>${__("After Installation")}</strong>
+                                    <small>${__("Completed work photos")}</small>
+                                </div>
+                            </button>
+                            <button type="button" class="btn btn-lg btn-default sales-order-type-btn" data-type="Before Installation">
+                                <div class="sales-order-type-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                </div>
+                                <div class="sales-order-type-label">
+                                    <strong>${__("Before Installation")}</strong>
+                                    <small>${__("Site photos before work starts")}</small>
+                                </div>
+                            </button>
+                        </div>
+                        <small class="text-muted sales-order-type-hint">${__("Select when these photos were taken")}</small>
+                    </div>
+
                     <div class="sales-order-installer-files">
                         <label class="control-label">${__("Installation Photos")}</label>
                         <button class="sales-order-dropzone" type="button">
@@ -79,7 +104,9 @@ class SalesOrderInstallerPage {
         this.$results = $main.find(".sales-order-search-results");
         this.$file_list = $main.find(".sales-order-file-list");
         this.$upload = $main.find(".btn-upload");
+        this.$type_buttons = $main.find(".sales-order-type-btn");
         this.selected_files = [];
+        this.selected_type = "After Installation";
         this.allowed_file_types = [
             "image/jpeg",
             "image/png",
@@ -109,6 +136,12 @@ class SalesOrderInstallerPage {
             this.remove_file(index);
         });
         $main.find(".btn-upload").on("click", () => this.upload());
+        this.$type_buttons.on("click", (event) => {
+            this.$type_buttons.removeClass("active btn-primary").addClass("btn-default");
+            const $btn = $(event.currentTarget);
+            $btn.removeClass("btn-default").addClass("active btn-primary");
+            this.selected_type = $btn.data("type");
+        });
         $(document).on("click.sales-order-installer", (event) => {
             if (!$(event.target).closest(".sales-order-search-wrap").length) {
                 this.hide_results();
@@ -393,7 +426,8 @@ class SalesOrderInstallerPage {
                 method: "sales_order_installer.api.upload_and_mark_installed",
                 args: {
                     sales_order_name: name,
-                    files: encodedFiles
+                    files: encodedFiles,
+                    upload_type: this.selected_type
                 }
             });
 
