@@ -107,16 +107,16 @@ function show_preview_dialog(sales_order_name, data) {
                             </div>
                         </div>
                         <div class="install-preview-tabs">
-                            <button class="install-tab-btn active" data-tab="before">${__('Before Installation')}</button>
-                            <button class="install-tab-btn" data-tab="after">${__('After Installation')}</button>
+                            <button class="install-tab-btn active" data-tab="after">${__('After Installation')}</button>
+                            <button class="install-tab-btn" data-tab="before">${__('Before Installation')}</button>
                             <button class="install-tab-btn" data-tab="timeline">${__('Timeline')}</button>
                         </div>
                         <div class="install-preview-content">
-                            <div class="install-tab-panel active" data-tab="before">
-                                <div class="install-preview-grid">${before_html}</div>
-                            </div>
-                            <div class="install-tab-panel" data-tab="after">
+                            <div class="install-tab-panel active" data-tab="after">
                                 <div class="install-preview-grid">${after_html}</div>
+                            </div>
+                            <div class="install-tab-panel" data-tab="before">
+                                <div class="install-preview-grid">${before_html}</div>
                             </div>
                             <div class="install-tab-panel" data-tab="timeline">
                                 <div class="install-timeline">${render_timeline(before_logs, after_logs)}</div>
